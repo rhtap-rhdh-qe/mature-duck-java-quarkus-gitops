@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mature-duck-java-quarkus-development
+  namespace: openshift-gitops
+  finalizers: ["resources-finalizer.argocd.argoproj.io"] 
+spec:
+  project: default
+  source:
+    path: ./components/mature-duck-java-quarkus/overlays/development
+    repoURL: https://github.com/rhtap-rhdh-qe/mature-duck-java-quarkus-gitops.git
+    targetRevision: main
+  destination:
+    namespace: rhtap-e2e-ci-development
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels: 
+        argocd.argoproj.io/managed-by: openshift-gitops
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true

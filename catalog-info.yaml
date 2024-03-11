@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: mature-duck-java-quarkus-gitops
+  description: This is GitOps manifest for mature-duck-java-quarkus   
+  links:
+    - url: https://www.redhat.com/en/solutions/trusted-software-supply-chain
+      title: Trusted Secure Supply Chain 
+      icon: dashboard
+      type: admin-dashboard
+  annotations:    
+    argocd/app-name: mature-duck-java-quarkus
+    janus-idp.io/tekton: mature-duck-java-quarkus 
+    backstage.io/kubernetes-id: mature-duck-java-quarkus 
+    backstage.io/techdocs-ref: dir:. 
+spec:
+  type: gitops
+  owner: user:guest 
+  lifecycle: experimental
+  dependsOn:
+    - component:mature-duck-java-quarkus
